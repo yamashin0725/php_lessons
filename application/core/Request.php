@@ -75,6 +75,7 @@ class Request
         $request_uri = $this->getRequestUri();
 
         if (false !== ($pos = strpos($request_uri, '?'))) {
+            // URLパラメータが含まれてる場合 ?より前の情報を返却
             $request_uri = substr($request_uri, 0, $pos);
         }
 

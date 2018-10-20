@@ -3,7 +3,7 @@
 // データベースに保存
 $link  = mysql_connect('localhost', 'root', '');
 if (!$link) {
-    die('データベースに接続できません: ' . mysql_error();
+    die('データベースに接続できません: ' . mysql_error());
 }
 
 // データベースを選択する

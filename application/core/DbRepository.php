@@ -28,6 +28,6 @@ abstract class DbRepository
 
     public function fetchAll($sql, $params = array())
     {
-        return $this->execute($sql, $params)->fetchAll(PDO::FETCH_ASSOC)
+        return $this->execute($sql, $params)->fetchAll(PDO::FETCH_ASSOC);
     }
 }

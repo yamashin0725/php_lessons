@@ -10,6 +10,13 @@ class Router
     }
 
     public function compileRoutes($definitions)
+    // difinitionsの例
+    // array(
+    //   '/:controller'
+    //     => array('action' => 'index'),
+    //   '/item/:action'
+    //     => array('controller' => 'item'),
+    // );
     {
         $routes = array();
 
@@ -39,6 +46,19 @@ class Router
         foreach ($this->routes as $pattern => $params) {
             if(preg_match('#^' . $pattern . '$#', $path_info, $matches)) {
                 $params = array_merge($params, $matches);
+                // array(
+                //   '/:controller'
+                //     => array('action' => 'index'),
+                //   '/item/:action'
+                //     => array('controller' => 'item'),
+                // );
+                // が
+                // array(
+                //   '/:controller'
+                //     => array('action' => 'index', 'controller' => ':controllerで指定された中身'),
+                //   '/item/:action'
+                //     => array('controller' => 'item', 'action' => ':actionで指定された中身'),
+                // ); となるように$paramsにマージして返却
 
                 return $params;
             }

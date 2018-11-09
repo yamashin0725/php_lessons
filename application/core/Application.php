@@ -90,7 +90,7 @@ abstract class Application
                 require_once $controller_file;
 
                 if (!class_exists($controller_class)) {
-                    return false
+                    return false;
                 }
             }
         }

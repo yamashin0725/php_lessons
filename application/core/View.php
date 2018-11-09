@@ -34,7 +34,7 @@ class View
             $content = $this->render($_layout,
                 array_merge($this->layout_variables,array(
                     '_content' => $content,
-                )
+                ))
             );
         }
 

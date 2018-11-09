@@ -1,7 +1,7 @@
 <?php
 
 // データベースに保存
-$link  = mysql_connect('localhost', 'root', '');
+$link  = mysql_connect('localhost', 'root', 'root');
 if (!$link) {
     die('データベースに接続できません: ' . mysql_error());
 }

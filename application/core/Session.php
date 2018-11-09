@@ -28,6 +28,11 @@ class Session
         return $default;
     }
 
+    public function remove($name)
+    {
+        unset($_SESSION[$name]);
+    }
+
     public function clear()
     {
         $_SESSION = array();

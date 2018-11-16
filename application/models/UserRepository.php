@@ -4,7 +4,7 @@ class UserRepository extends DBRepository
 {
     public function insert($user_name, $password)
     {
-        $password = $this->hashPassword($password)
+        $password = $this->hashPassword($password);
         $now = new DateTime();
 
         $sql = "
@@ -15,7 +15,7 @@ class UserRepository extends DBRepository
         $stmt = $this->execute($url, array(
             ':user_name'    => $user_name,
             ':password'     => $password,
-            ':created_at'   => $now->format('Y-m-d' H:i:s),
+            ':created_at'   => $now->format('Y-m-d H:i:s'),
         ));
     }
 

@@ -1,13 +1,12 @@
 <?php
 
 // データベースに保存
-$link  = mysql_connect('localhost', 'root', 'root');
-if (!$link) {
-    die('データベースに接続できません: ' . mysql_error());
+$mysqli = new mysqli('localhost', 'root', 'root', 'oneline_bbs');
+$link  = mysqli_connect('localhost', 'root', 'root', 'oneline_bbs');
+if ($mysqli->connect_error) {
+    error_log($mysqli->connect_error);
+    exit;
 }
-
-// データベースを選択する
-mysql_select_db('oneline_bbs', $link);
 
 $errors = array();
 
@@ -37,14 +36,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (count($errors) === 0) {
         // 保存するためのSQL文を作成
         $sql = "INSERT INTO 'post' ('name', 'comment', 'created_at') VALUES ('"
-            . mysql_real_escape_string($name) . "','"
-            . mysql_real_escape_string($comment) . "','"
+            . $mysqli->real_escape_string($name) . "','"
+            . $mysqli->real_escape_string($comment) . "','"
             . date('Y-m-d H:i:s') . "')";
 
         // 保存する
-        mysql_query($sql, $link);
+        $res = $mysqli->query($sql);
+        if(!$res) {
+            error_log($mysqli->error);
+            exit;
+        }
 
-        mysql_close($link);
+        $mysqli->close;
 
         header('Location: http://' . $_SERVER['HTTP_HOST'] . $SERVER['REQUEST_URI']);
     }
@@ -97,8 +100,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <?php
     // 取得結果を解放して接続を閉じる
-    mysql_free_result($result);
-    mysql_close($link);
+    mysqli_free_result($result);
+    $mysqli->close;
     ?>
 </body>
 </html>

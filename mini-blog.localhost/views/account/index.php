@@ -1,16 +1,19 @@
-<table>
-    <tbody>
-        <tr>
-            <th>ユーザID</th>
-            <td>
-                <input type="text" name="user_name" value=<?php echo $this->escape($user_name); ?> />
-            </td>
-        </tr>
-        <tr>
-            <th>パスワード</th>
-            <td>
-                <input type="password" name="password" value=<?php echo $this->escape($password); ?> />
-            </td>
-        </tr>
-    <tdoby>
-</table>
+<?php $this->setLayoutVar('title', 'アカウント') ?>
+
+<h2>アカウント</h2>
+
+<p>
+    ユーザID:
+    <a href="<?php echo $base_url ?>/user/<?php echo $this->escape($user['user_name']); ?>">
+        <strong><?php echo $this->escape($user['user_name']); ?></strong>
+    </a>
+</p>
+
+<ul>
+    <li>
+        <a href="<?php echo $base_url; ?>"/>ホーム</a>
+    </li>
+    <li>
+        <a href="<?php echo $base_url; ?>/account/signout">ログアウト</a>
+    </li>
+</ul>

@@ -31,6 +31,18 @@ class UserRepository extends DbRepository
         return $this->fetch($sql, array(':user_name' => $user_name));
     }
 
+    public function fetchAllFollowingsByUserId($user_id)
+    {
+        sql = "
+            SELECT u.*
+            FROM user u
+                LEFT JOIN following f ON f.following_id = u.id
+            WHERE f.user_id = :user_id
+        ";
+
+        return $this->fetchAll($sql, array(':user_id' => $user_id));
+    }
+
     public function isUniqueUserName($user_name)
     {
         $sql = "SELECT COUNT(id) as count FROM user WHERE user_name = :user_name";

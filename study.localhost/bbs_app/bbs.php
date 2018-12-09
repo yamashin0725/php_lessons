@@ -2,7 +2,6 @@
 
 // データベースに保存
 $mysqli = new mysqli('localhost', 'root', 'root', 'oneline_bbs');
-$link  = mysqli_connect('localhost', 'root', 'root', 'oneline_bbs');
 if ($mysqli->connect_error) {
     error_log($mysqli->connect_error);
     exit;
@@ -35,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     // エラーがなければ保存
     if (count($errors) === 0) {
         // 保存するためのSQL文を作成
-        $sql = "INSERT INTO 'post' ('name', 'comment', 'created_at') VALUES ('"
+        $sql = "INSERT INTO `post` (`name`, `comment`, `created_at`) VALUES ('"
             . $mysqli->real_escape_string($name) . "','"
             . $mysqli->real_escape_string($comment) . "','"
             . date('Y-m-d H:i:s') . "')";
@@ -47,9 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             exit;
         }
 
-        $mysqli->close;
-
-        header('Location: http://' . $_SERVER['HTTP_HOST'] . $SERVER['REQUEST_URI']);
+        header('Location: http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']);
     }
 }
 
@@ -82,13 +79,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     <?php
     // 投稿された内容を取得するSQLを作成して結果を取得
-    $sql = "SELECT * FROM 'post' ORDER BY 'created_at' DESC";
-    $result = mysql_query($sql, $link);
+    $sql = "SELECT * FROM `post` ORDER BY `created_at` DESC";
+    $result = $mysqli->query($sql);
     ?>
 
-    <?php if($result !== false && mysql_num_rows($result)): ?>
+    <?php
+    if($result !== false && $result->num_rows):
+    ?>
     <ul>
-        <?php while ($post = mysql_fetch_assoc($result)): ?>
+        <?php while ($post = $result->fetch_assoc()): ?>
         <li>
             <?php echo htmlspecialchars($post['name'], ENT_QUOTES, 'UTF-8'); ?>:
             <?php echo htmlspecialchars($post['comment'], ENT_QUOTES, 'UTF-8'); ?>
@@ -96,12 +95,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         </li>
         <?php endwhile; ?>
     </ul>
+    <?php $result->close(); ?>
     <?php endif; ?>
 
     <?php
     // 取得結果を解放して接続を閉じる
-    mysqli_free_result($result);
-    $mysqli->close;
+    $mysqli->close();
     ?>
 </body>
 </html>

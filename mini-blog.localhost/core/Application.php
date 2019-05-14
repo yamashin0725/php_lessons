@@ -12,7 +12,7 @@ abstract class Application
 
     public function __construct($debug = false)
     {
-        $this->setDegubMode($debug);
+        $this->setDebugMode($debug);
         $this->initialize();
         $this->configure();
     }
@@ -35,7 +35,7 @@ abstract class Application
         $this->response = new Response();
         $this->session = new Session();
         $this->db_manager = new DbManager();
-        $this->router = new Router($this->registerRouters());
+        $this->router = new Router($this->registerRoutes());
     }
 
     protected function configure()
@@ -122,7 +122,7 @@ EOF
 
     abstract public function getRootDir();
 
-    abstract protected function registerRouters();
+    abstract protected function registerRoutes();
 
     public function isDebugMode()
     {

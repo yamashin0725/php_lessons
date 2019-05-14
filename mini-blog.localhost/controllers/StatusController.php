@@ -19,12 +19,12 @@ class StatusController extends Controller
 
     public function postAction()
     {
-        if (!this->request->isPost()) {
+        if (!$this->request->isPost()) {
             $this->forward404();
         }
 
         $token = $this->request->getPost('_token');
-        if (!this->checkCsrfToken('status/post', $token)) {
+        if (!$this->checkCsrfToken('status/post', $token)) {
             return $this->redirect('/');
         }
 

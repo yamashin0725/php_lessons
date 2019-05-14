@@ -12,7 +12,7 @@ abstract class Controller
 
     public function __construct($application)
     {
-        $this->$controller_name = strtolower(substr(get_class($this), 0, -10));
+        $this->controller_name = strtolower(substr(get_class($this), 0, -10));
 
         $this->application  = $application;
         $this->request      = $application->getRequest();
@@ -59,7 +59,7 @@ abstract class Controller
 
         $view = new View($this->application->getViewDir(), $defaults);
 
-        if (is_null($templates)) {
+        if (is_null($template)) {
             $template = $this->action_name;
         }
 

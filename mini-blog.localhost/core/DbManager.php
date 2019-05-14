@@ -24,7 +24,7 @@ class DbManager
 
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        $this->$connections[$name] = $con;
+        $this->connections[$name] = $con;
     }
 
     public function getConnection($name = null)
@@ -38,13 +38,13 @@ class DbManager
 
     public function setRepositoryconnectionMap($repository_name, $name)
     {
-        $this->$repository_connection_map[$repository_name] = $name;
+        $this->repository_connection_map[$repository_name] = $name;
     }
 
     public function getConnectionForRepository($repository_name)
     {
-        if (isset($this->$repository_connection_map[$repository_name])) {
-            $name = $this->$repository_connection_map[$repository_name];
+        if (isset($this->repository_connection_map[$repository_name])) {
+            $name = $this->repository_connection_map[$repository_name];
             $con = $this->getConnection($name);
         } else {
             $con = $this->getConnection();

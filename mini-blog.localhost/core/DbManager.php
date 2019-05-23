@@ -14,15 +14,19 @@ class DbManager
             'password'  => '',
             'options'   => array(),
         ), $params);
+        
+        try {
+            $con = new PDO(
+                $params['dsn'],
+                $params['user'],
+                $params['password'],
+                $params['options']
+            );
 
-        $con = new PDO(
-            $params['dsn'],
-            $params['user'],
-            $params['password'],
-            $params['options']
-        );
-
-        $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        } catch (PDOException $e) {
+            exit($e->getMessage());
+        }
 
         $this->connections[$name] = $con;
     }

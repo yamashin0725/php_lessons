@@ -80,6 +80,8 @@ class Request
 
         $path_info = (string)substr($request_uri, strlen($base_url));
 
+        print "[path info] " . $path_info;
+
         return $path_info;
     }
 }
